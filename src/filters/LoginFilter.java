@@ -42,10 +42,10 @@ public class LoginFilter implements Filter {
         String context_path = ((HttpServletRequest)request).getContextPath();
         String servlet_path = ((HttpServletRequest)request).getServletPath();
 
-        if(!servlet_path.matches("/css.*")){
+        if(!servlet_path.matches("/css.*")) {       // CSSフォルダ内は認証処理から除外する
             HttpSession session = ((HttpServletRequest)request).getSession();
 
-         // セッションスコープに保存された従業員（ログインユーザ）情報を取得
+            // セッションスコープに保存された従業員（ログインユーザ）情報を取得
             Employee e = (Employee)session.getAttribute("login_employee");
 
             if(!servlet_path.equals("/login")) {        // ログイン画面以外について
@@ -69,9 +69,10 @@ public class LoginFilter implements Filter {
                     return;
                 }
             }
-
-            chain.doFilter(request, response);
         }
+
+        chain.doFilter(request, response);
+
     }
 
     /**
